@@ -1,0 +1,11 @@
+## 2026-11-10
+- 프롬프트:마감일 오후 1시에 접수가 마감돼야 하는데, 오후 1시가 지나도 원서 작성이 막혀 개발용 패널에서 마감 시각을 13:00으로 설정했을 때 13:00 이후에도 접수 마감으로 표시돼 getPhase 함수의 if (current.isBefore(dayjs(schedule.applicationEnd))) return 'APPLICATION';부분의 코드 리뷰 해줘
+
+- AI 답변: 현재 시각이 접수 마감 시각보다 이르면 'APPLICATION'을 반환하며, 마감 시각과 같으면 접수 중으로 판정하지 않아 마감 시각 미만이라는 조건에 맞습니다.
+
+- 직접 확인: getPhase의 if (current.isBefore(dayjs(schedule.applicationEnd))) return 'APPLICATION'; 부분을 확인하고 'day'를 제거했다. 수정 후 13:00과 16:59에는 접수 중, 17:00에는 접수 마감으로 표시되는 것을 확인했다.
+
+## 2026-11-10 — 일정 시각 표시 수정
+- 프롬프트(질문 요약): “오후 02:00을 14:00으로 나타내는 방식의 이름이 뭐야? JS에서 이렇게 표시하려면 어느 문법을 고쳐야 해?”
+- AI 답변: 24시간제라고 설명했다. 이 프로젝트에서 사용하는 Day.js의 시간 표시 형식에서 hh:mm을 HH:mm으로 바꾸면 된다고 안내했다.
+- 직접 확인: src/utils/schedule.ts의 formatScheduleDate에서 hh:mm을 HH:mm으로 수정하고, 전형 일정 화면에서 수정 전후의 시간 표시를 비교했다.
