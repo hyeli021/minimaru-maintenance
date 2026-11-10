@@ -14,4 +14,4 @@ export const getPhase = (schedule: Schedule): Phase => {
 };
 
 export const formatScheduleDate = (date: string) =>
-  dayjs(date).locale('ko').format('YYYY.MM.DD (dd) hh:mm');
+  dayjs(date).locale('ko').format('YYYY.MM.DD (dd) HH:mm');
