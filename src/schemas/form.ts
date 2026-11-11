@@ -1,3 +1,4 @@
+import { getDocumentLength } from '@/utils/form';
 import { z } from 'zod';
 import { DOCUMENT_MAX_LENGTH, SUBJECTS } from '@/constants/form';
 import type { Form } from '@/types/form';
@@ -69,9 +70,16 @@ export const gedScoreSchema = z.object(
   ),
 );
 
+const documentTextSchema = z
+  .string()
+  .refine((value) => value.trim().length > 0, { message })
+  .refine((value) => getDocumentLength(value) <= DOCUMENT_MAX_LENGTH, {
+    message: `줄바꿈을 2자로 계산하여 ${DOCUMENT_MAX_LENGTH}자 이내로 작성해주세요.`,
+  });
+
 export const documentSchema = z.object({
-  coverLetter: z.string().trim().min(1, message).max(DOCUMENT_MAX_LENGTH, message),
-  studyPlan: z.string().trim().min(1, message).max(DOCUMENT_MAX_LENGTH, message),
+  coverLetter: documentTextSchema,
+  studyPlan: documentTextSchema,
 });
 
 export type FieldErrors = Record<string, string>;

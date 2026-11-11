@@ -77,3 +77,6 @@ export const toSubmitRequest = (form: Form) => {
 };
 
 export type SubmitFormRequest = ReturnType<typeof toSubmitRequest>;
+
+export const getDocumentLength = (value: string) =>
+  value.replace(/\r\n|\r|\n/g, '\r\n').length;
