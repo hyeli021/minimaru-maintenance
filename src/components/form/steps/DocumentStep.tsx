@@ -1,5 +1,5 @@
 'use client';
-
+import { getDocumentLength } from '@/utils/form';
 import styled from '@emotion/styled';
 import { DOCUMENT_MAX_LENGTH } from '@/constants/form';
 import { useFormSection } from '@/hooks/useFormSection';
@@ -28,7 +28,7 @@ const DocumentStep = ({ errors }: { errors: FieldErrors }) => {
   return (
     <StepSection>
       <StepTitle>자기소개서</StepTitle>
-      <Description>각 항목은 공백 포함 {DOCUMENT_MAX_LENGTH}자 이내로 작성해주세요.</Description>
+      <Description>각 항목은 공백 포함 {DOCUMENT_MAX_LENGTH}자 이내로 작성해주세요. 줄바꿈은 2자로 계산합니다.</Description>
       {FIELDS.map(({ key, label, placeholder }) => (
         <FieldGroup key={key}>
           <FieldLabel>{label}</FieldLabel>
@@ -43,7 +43,7 @@ const DocumentStep = ({ errors }: { errors: FieldErrors }) => {
           <Footer>
             {errors[key] ? <ErrorText>{errors[key]}</ErrorText> : <span />}
             <Count>
-              {document[key].length} / {DOCUMENT_MAX_LENGTH}
+              {getDocumentLength(document[key])} / {DOCUMENT_MAX_LENGTH}
             </Count>
           </Footer>
         </FieldGroup>
