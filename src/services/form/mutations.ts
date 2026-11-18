@@ -28,7 +28,7 @@ export const useSubmitFormMutation = () => {
   return useMutation({
     mutationFn: (form: Form) => postForm(toSubmitRequest(form)),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['form', 'status'] });
+      queryClient.invalidateQueries({ queryKey: ['formStatus'] });
       router.push('/form/complete');
     },
     onError: () => alert('제출에 실패했습니다. 잠시 후 다시 시도해주세요.'),
