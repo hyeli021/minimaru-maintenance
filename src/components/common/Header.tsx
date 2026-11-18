@@ -1,5 +1,6 @@
 'use client';
 
+import { useSyncExternalStore } from 'react';
 import styled from '@emotion/styled';
 import Link from 'next/link';
 import { useLogoutMutation } from '@/services/auth/mutations';
@@ -11,7 +12,11 @@ import { token } from '@/utils/token';
 const Header = () => {
   const { data: user } = useUserQuery();
   const { mutate: logout } = useLogoutMutation();
-  const isLoggedIn = token.exists();
+  const isLoggedIn = useSyncExternalStore(
+    token.subscribe,
+    token.exists,
+    () => false,
+  );
 
   return (
     <StyledHeader>
